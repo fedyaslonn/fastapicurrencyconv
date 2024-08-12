@@ -3,7 +3,6 @@ from .schemas import *
 from .services import *
 import ssl
 from .celery_app import convert_currency
-
 converter_router = APIRouter()
 
 @converter_router.get('/get_convert_result/', response_model=ConverterAnswer)

@@ -1,8 +1,9 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-from pydantic_settings import BaseSettings
 from pydantic import BaseModel
+from pydantic_settings import BaseSettings
+from typing import Optional
 
 BASE_DIR = Path(__file__).parent.parent
 load_dotenv()
@@ -21,9 +22,9 @@ class DBSettings(BaseSettings):
     password: str = DB_PASS
 
 class AuthJWT(BaseModel):
-    private_key_path : Path = BASE_DIR / "jwt_keys" / ""
-    public_key_path: Path = BASE_DIR / "jwt_keys" / ""
-    algoritm: str = "RS256"
+    private_key_path : Path = BASE_DIR / "jwt_keys" / "jwt-private.pem"
+    public_key_path: Path = BASE_DIR / "jwt_keys" / "jwt-public.pem"
+    algorithm: str = "RS256"
     access_token_expire_minutes: int = 30
 
 class Settings(BaseSettings):

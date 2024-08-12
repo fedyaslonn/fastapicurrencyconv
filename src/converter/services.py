@@ -3,7 +3,6 @@ from typing import List, Dict
 import requests
 from fastapi import HTTPException
 from datetime import date
-from tenacity import retry, stop_after_attempt, wait_exponential, RetryError
 
 
 class CurrencyService:
