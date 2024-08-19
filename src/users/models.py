@@ -1,9 +1,13 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine
-from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
+from sqlalchemy.orm import relationship
+from typing import TYPE_CHECKING
+from database import Base
 
-Base = declarative_base()
+if TYPE_CHECKING:
+    from converter.models import User
+
 
 
 class User(Base):
@@ -13,4 +17,6 @@ class User(Base):
     username = Column(String, unique=True, nullable=False)
     email = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
+    operations = relationship("Operation", back_populates="user")
+
 

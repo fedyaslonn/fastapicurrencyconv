@@ -4,6 +4,7 @@ import os
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings
 from typing import Optional
+import secrets
 
 BASE_DIR = Path(__file__).parent.parent
 load_dotenv()
@@ -22,9 +23,7 @@ class DBSettings(BaseSettings):
     password: str = DB_PASS
 
 class AuthJWT(BaseModel):
-    private_key_path : Path = BASE_DIR / "jwt_keys" / "jwt-private.pem"
-    public_key_path: Path = BASE_DIR / "jwt_keys" / "jwt-public.pem"
-    algorithm: str = "RS256"
+    algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
 
 class Settings(BaseSettings):
@@ -32,3 +31,7 @@ class Settings(BaseSettings):
     db: DBSettings = DBSettings()
 
 settings = Settings()
+
+secret_key = secrets.token_urlsafe(32)
+
+SECRET_KEY = secret_key
